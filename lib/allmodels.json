@@ -1,0 +1,449 @@
+{
+  "Apple": [
+    {
+      "model": "iPhone 6",
+      "buySimuFinancing": false,
+      "chanteqFinancing": false,
+      "storages": ["16GB", "32GB", "64GB", "128GB"],
+      "colors": [
+        { "label": "Space Gray", "colorCode": "#4A4A4A" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" }
+      ]
+    },
+    {
+      "model": "iPhone 6 Plus",
+      "buySimuFinancing": false,
+      "chanteqFinancing": false,
+      "storages": ["16GB", "64GB", "128GB"],
+      "colors": [
+        { "label": "Space Gray", "colorCode": "#4A4A4A" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" }
+      ]
+    },
+    {
+      "model": "iPhone 6S",
+      "buySimuFinancing": false,
+      "chanteqFinancing": false,
+      "storages": ["16GB", "32GB", "64GB", "128GB"],
+      "colors": [
+        { "label": "Space Gray", "colorCode": "#4A4A4A" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Rose Gold", "colorCode": "#FFADC4" }
+      ]
+    },
+    {
+      "model": "iPhone 6S Plus",
+      "buySimuFinancing": false,
+      "chanteqFinancing": false,
+      "storages": ["16GB", "32GB", "64GB", "128GB"],
+      "colors": [
+        { "label": "Space Gray", "colorCode": "#4A4A4A" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Rose Gold", "colorCode": "#FFADC4" }
+      ]
+    },
+    {
+      "model": "iPhone 7",
+      "buySimuFinancing": false,
+      "chanteqFinancing": false,
+      "storages": ["32GB", "128GB", "256GB"],
+      "colors": [
+        { "label": "Black", "colorCode": "#1C1C1E" },
+        { "label": "Jet Black", "colorCode": "#2B2B2B" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Rose Gold", "colorCode": "#FFADC4" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone 7 Plus",
+      "buySimuFinancing": false,
+      "chanteqFinancing": false,
+      "storages": ["32GB", "128GB", "256GB"],
+      "colors": [
+        { "label": "Black", "colorCode": "#1C1C1E" },
+        { "label": "Jet Black", "colorCode": "#2B2B2B" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Rose Gold", "colorCode": "#FFADC4" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone 8",
+      "buySimuFinancing": false,
+      "chanteqFinancing": false,
+      "storages": ["64GB", "128GB", "256GB"],
+      "colors": [
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Space Gray", "colorCode": "#4A4A4A" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone 8 Plus",
+      "buySimuFinancing": false,
+      "chanteqFinancing": false,
+      "storages": ["64GB", "128GB", "256GB"],
+      "colors": [
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Space Gray", "colorCode": "#4A4A4A" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone SE (2nd generation)",
+      "buySimuFinancing": false,
+      "chanteqFinancing": false,
+      "storages": ["64GB", "128GB", "256GB"],
+      "colors": [
+        { "label": "Black", "colorCode": "#1C1C1E" },
+        { "label": "White", "colorCode": "#FFFFFF" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone X",
+      "buySimuFinancing": false,
+      "chanteqFinancing": true,
+      "storages": ["64GB", "256GB"],
+      "colors": [
+        { "label": "Space Gray", "colorCode": "#4A4A4A" },
+        { "label": "Silver", "colorCode": "#C0C0C0" }
+      ]
+    },
+    {
+      "model": "iPhone XR",
+      "buySimuFinancing": false,
+      "chanteqFinancing": true,
+      "storages": ["64GB", "128GB", "256GB"],
+      "colors": [
+        { "label": "Black", "colorCode": "#1C1C1E" },
+        { "label": "White", "colorCode": "#FFFFFF" },
+        { "label": "Blue", "colorCode": "#007AFF" },
+        { "label": "Coral", "colorCode": "#FF5E3A" },
+        { "label": "Yellow", "colorCode": "#FFCC00" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone XS",
+      "buySimuFinancing": false,
+      "chanteqFinancing": true,
+      "storages": ["64GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Space Gray", "colorCode": "#4A4A4A" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" }
+      ]
+    },
+    {
+      "model": "iPhone XS Max",
+      "buySimuFinancing": false,
+      "chanteqFinancing": true,
+      "storages": ["64GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Space Gray", "colorCode": "#4A4A4A" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" }
+      ]
+    },
+    {
+      "model": "iPhone 11",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["64GB", "128GB", "256GB"],
+      "colors": [
+        { "label": "Black", "colorCode": "#1C1C1E" },
+        { "label": "White", "colorCode": "#FFFFFF" },
+        { "label": "Purple", "colorCode": "#BF94E4" },
+        { "label": "Yellow", "colorCode": "#FFCC00" },
+        { "label": "Green", "colorCode": "#34C759" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone 11 Pro",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["64GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Space Gray", "colorCode": "#4A4A4A" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Midnight Green", "colorCode": "#4B635B" }
+      ]
+    },
+    {
+      "model": "iPhone 11 Pro Max",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["64GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Space Gray", "colorCode": "#4A4A4A" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Midnight Green", "colorCode": "#4B635B" }
+      ]
+    },
+    {
+      "model": "iPhone 12",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["64GB", "128GB", "256GB"],
+      "colors": [
+        { "label": "Black", "colorCode": "#1C1C1E" },
+        { "label": "White", "colorCode": "#FFFFFF" },
+        { "label": "Red", "colorCode": "#FF3B30" },
+        { "label": "Green", "colorCode": "#34C759" },
+        { "label": "Blue", "colorCode": "#007AFF" },
+        { "label": "Purple", "colorCode": "#BF94E4" }
+      ]
+    },
+    {
+      "model": "iPhone 12 Mini",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["64GB", "128GB", "256GB"],
+      "colors": [
+        { "label": "Black", "colorCode": "#1C1C1E" },
+        { "label": "White", "colorCode": "#FFFFFF" },
+        { "label": "Red", "colorCode": "#FF3B30" },
+        { "label": "Green", "colorCode": "#34C759" },
+        { "label": "Blue", "colorCode": "#007AFF" },
+        { "label": "Purple", "colorCode": "#BF94E4" }
+      ]
+    },
+    {
+      "model": "iPhone 12 Pro",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Graphite", "colorCode": "#555555" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Pacific Blue", "colorCode": "#0047AB" }
+      ]
+    },
+    {
+      "model": "iPhone 12 Pro Max",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Graphite", "colorCode": "#555555" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Pacific Blue", "colorCode": "#0047AB" }
+      ]
+    },
+    {
+      "model": "iPhone 13",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Starlight", "colorCode": "#F9E3DF" },
+        { "label": "Midnight", "colorCode": "#1C1C1E" },
+        { "label": "Blue", "colorCode": "#007AFF" },
+        { "label": "Pink", "colorCode": "#F7B6C1" },
+        { "label": "Green", "colorCode": "#34C759" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone 13 Mini",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Starlight", "colorCode": "#F9E3DF" },
+        { "label": "Midnight", "colorCode": "#1C1C1E" },
+        { "label": "Blue", "colorCode": "#007AFF" },
+        { "label": "Pink", "colorCode": "#F7B6C1" },
+        { "label": "Green", "colorCode": "#34C759" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone 13 Pro",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Graphite", "colorCode": "#555555" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Sierra Blue", "colorCode": "#A1CAF1" }
+      ]
+    },
+    {
+      "model": "iPhone 13 Pro Max",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Graphite", "colorCode": "#555555" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Sierra Blue", "colorCode": "#A1CAF1" }
+      ]
+    },
+    {
+      "model": "iPhone 14",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Midnight", "colorCode": "#1C1C1E" },
+        { "label": "Starlight", "colorCode": "#F9E3DF" },
+        { "label": "Blue", "colorCode": "#007AFF" },
+        { "label": "Purple", "colorCode": "#BF94E4" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone 14 Plus",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Midnight", "colorCode": "#1C1C1E" },
+        { "label": "Starlight", "colorCode": "#F9E3DF" },
+        { "label": "Blue", "colorCode": "#007AFF" },
+        { "label": "Purple", "colorCode": "#BF94E4" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone 14 Pro",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Space Black", "colorCode": "#1B1B1D" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Deep Purple", "colorCode": "#4B0082" }
+      ]
+    },
+    {
+      "model": "iPhone 14 Pro Max",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Space Black", "colorCode": "#1B1B1D" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Deep Purple", "colorCode": "#4B0082" }
+      ]
+    },
+    {
+      "model": "iPhone 15",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Black", "colorCode": "#1C1C1E" },
+        { "label": "Blue", "colorCode": "#007AFF" },
+        { "label": "Yellow", "colorCode": "#FFCC00" },
+        { "label": "Pink", "colorCode": "#F7B6C1" },
+        { "label": "Green", "colorCode": "#34C759" }
+      ]
+    },
+    {
+      "model": "iPhone 15 Plus",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Black", "colorCode": "#1C1C1E" },
+        { "label": "Blue", "colorCode": "#007AFF" },
+        { "label": "Yellow", "colorCode": "#FFCC00" },
+        { "label": "Pink", "colorCode": "#F7B6C1" },
+        { "label": "Green", "colorCode": "#34C759" }
+      ]
+    },
+    {
+      "model": "iPhone 15 Pro",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Titanium Black", "colorCode": "#1B1B1D" },
+        { "label": "Titanium Blue", "colorCode": "#007FFF" },
+        { "label": "Titanium White", "colorCode": "#F5F5F5" },
+        { "label": "Natural Titanium", "colorCode": "#8D8D8D" }
+      ]
+    },
+    {
+      "model": "iPhone 15 Pro Max",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Titanium Black", "colorCode": "#1B1B1D" },
+        { "label": "Titanium Blue", "colorCode": "#007FFF" },
+        { "label": "Titanium White", "colorCode": "#F5F5F5" },
+        { "label": "Natural Titanium", "colorCode": "#8D8D8D" }
+      ]
+    },
+    {
+      "model": "iPhone 16",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Starlight", "colorCode": "#F9E3DF" },
+        { "label": "Midnight", "colorCode": "#1C1C1E" },
+        { "label": "Coral", "colorCode": "#FF6F61" },
+        { "label": "Mint", "colorCode": "#3EB489" }
+      ]
+    },
+    {
+      "model": "iPhone 16 Plus",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Starlight", "colorCode": "#F9E3DF" },
+        { "label": "Midnight", "colorCode": "#1C1C1E" },
+        { "label": "Coral", "colorCode": "#FF6F61" },
+        { "label": "Mint", "colorCode": "#3EB489" }
+      ]
+    },
+    {
+      "model": "iPhone 16 Pro",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Titanium Black", "colorCode": "#1B1B1D" },
+        { "label": "Titanium Blue", "colorCode": "#007FFF" },
+        { "label": "Titanium White", "colorCode": "#F5F5F5" },
+        { "label": "Natural Titanium", "colorCode": "#8D8D8D" }
+      ]
+    },
+    {
+      "model": "iPhone 16 Pro Max",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Titanium Black", "colorCode": "#1B1B1D" },
+        { "label": "Titanium Blue", "colorCode": "#007FFF" },
+        { "label": "Titanium White", "colorCode": "#F5F5F5" },
+        { "label": "Natural Titanium", "colorCode": "#8D8D8D" }
+      ]
+    }
+  ]
+}

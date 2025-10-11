@@ -1,0 +1,56 @@
+{
+  "Apple": [
+    {
+      "model": "iPhone 13",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Starlight", "colorCode": "#F9E3DF" },
+        { "label": "Midnight", "colorCode": "#1C1C1E" },
+        { "label": "Blue", "colorCode": "#007AFF" },
+        { "label": "Pink", "colorCode": "#F7B6C1" },
+        { "label": "Green", "colorCode": "#34C759" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone 13 Mini",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB"],
+      "colors": [
+        { "label": "Starlight", "colorCode": "#F9E3DF" },
+        { "label": "Midnight", "colorCode": "#1C1C1E" },
+        { "label": "Blue", "colorCode": "#007AFF" },
+        { "label": "Pink", "colorCode": "#F7B6C1" },
+        { "label": "Green", "colorCode": "#34C759" },
+        { "label": "Red", "colorCode": "#FF3B30" }
+      ]
+    },
+    {
+      "model": "iPhone 13 Pro",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Graphite", "colorCode": "#555555" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Sierra Blue", "colorCode": "#A1CAF1" }
+      ]
+    },
+    {
+      "model": "iPhone 13 Pro Max",
+      "buySimuFinancing": true,
+      "chanteqFinancing": true,
+      "storages": ["128GB", "256GB", "512GB", "1TB"],
+      "colors": [
+        { "label": "Graphite", "colorCode": "#555555" },
+        { "label": "Gold", "colorCode": "#D4AF37" },
+        { "label": "Silver", "colorCode": "#C0C0C0" },
+        { "label": "Sierra Blue", "colorCode": "#A1CAF1" }
+      ]
+    }
+  ]
+}
