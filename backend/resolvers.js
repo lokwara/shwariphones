@@ -1,17 +1,4 @@
-import mongoose from "mongoose"
-import {
-  Device,
-  Variant,
-  User,
-  Repair,
-  FinanceRequest,
-  Mailing,
-  Order,
-  Offer,
-  BuyBack,
-  Carousel,
-  TechTip,
-} from "./models/index.js"
+import { supabase } from "./lib/supabase.js"
 import nodemailer from "nodemailer"
 import { GoogleSpreadsheet } from "google-spreadsheet"
 import { JWT } from "google-auth-library"
@@ -19,7 +6,6 @@ import { JWT } from "google-auth-library"
 import dotenv from "dotenv"
 
 import moment from "moment"
-import { Blog } from "./models/Blog.js"
 
 dotenv.config()
 
@@ -314,7 +300,11 @@ const resolvers = {
 
   Query: {
     getFeatured: async () => {
-      const variants = await Variant.find({ featured: true, removed: false })
+      const { data: variants } = await supabase
+        .from('variants')
+        .select('*')
+        .eq('featured', true)
+        .eq('removed', false)
       return variants
     },
 
@@ -814,15 +804,16 @@ const resolvers = {
     },
 
     getAllOrders: async (_, args) => {
-      const orders = await Order.find({
-        "saleInfo.saleVia": "website",
-      })
-        .populate("variant")
-        .populate("saleInfo.customer")
-        .populate("saleInfo.recordedBy")
-        .sort({
-          createdAt: -1,
-        })
+      const { data: orders } = await supabase
+        .from('orders')
+        .select(`
+          *,
+          variants:variant_id(*),
+          users:saleInfo->customer(*),
+          recordedBy:saleInfo->recordedBy(*)
+        `)
+        .eq('saleInfo->>saleVia', 'website')
+        .order('created_at', { ascending: false })
 
       return orders
     },
@@ -858,23 +849,35 @@ const resolvers = {
     },
 
     getDevice: async (_, { id }) => {
-      const device = await Device.findById(id)
-        .populate("variant")
-        .populate("offer.info")
+      const { data: device } = await supabase
+        .from('devices')
+        .select(`
+          *,
+          variants:variant_id(*),
+          offers:offer_id(*)
+        `)
+        .eq('id', id)
+        .single()
 
       return device
     },
 
     getUser: async (_, args) => {
       const { email } = args
-      const user = await User.findOne({ email })
+      const { data: user } = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', email)
+        .single()
       return user
     },
 
     getVariants: async (_, args) => {
-      const variants = await Variant.find({ removed: false }).sort({
-        createdAt: -1,
-      })
+      const { data: variants } = await supabase
+        .from('variants')
+        .select('*')
+        .eq('removed', false)
+        .order('created_at', { ascending: false })
       return variants
     },
 
@@ -885,12 +888,17 @@ const resolvers = {
     // },
 
     getVariant: async (_, { id }) => {
-      const variant = await Variant.findById(id).lean()
+      const { data: variant } = await supabase
+        .from('variants')
+        .select('*')
+        .eq('id', id)
+        .single()
 
-      const devices = await Device.find({
-        variant: id,
-        status: "Available",
-      }).lean()
+      const { data: devices } = await supabase
+        .from('devices')
+        .select('*')
+        .eq('variant_id', id)
+        .eq('status', 'Available')
 
       variant.colors = variant?.colors?.map((color) => {
         const availableStorages = variant?.storages
@@ -933,11 +941,14 @@ const resolvers = {
     },
 
     getDevices: async (_, args) => {
-      const devices = await Device.find({ status: "Available" })
-        .sort({
-          createdAt: -1,
-        })
-        .populate("offer.info")
+      const { data: devices } = await supabase
+        .from('devices')
+        .select(`
+          *,
+          offers:offer_id(*)
+        `)
+        .eq('status', 'Available')
+        .order('created_at', { ascending: false })
       return devices
     },
 
@@ -978,10 +989,11 @@ const resolvers = {
     },
 
     getSuggestions: async (_, { brand }) => {
-      const variants = await Variant.find({
-        brand,
-      })
-        .sort({ createdAt: -1 })
+      const { data: variants } = await supabase
+        .from('variants')
+        .select('*')
+        .eq('brand', brand)
+        .order('created_at', { ascending: false })
         .limit(10)
 
       return variants
@@ -1127,15 +1139,22 @@ const resolvers = {
     },
 
     getCustomers: async (_, args) => {
-      const customers = await User.find({})
+      const { data: customers } = await supabase
+        .from('users')
+        .select('*')
       return customers
     },
 
     getSales: async (_, args) => {
-      const orders = await Order.find({ device: { $exists: true } })
-        .sort({ createdAt: -1 })
-        .populate("variant")
-        .populate("saleInfo.customer")
+      const { data: orders } = await supabase
+        .from('orders')
+        .select(`
+          *,
+          variants:variant_id(*),
+          users:saleInfo->customer(*)
+        `)
+        .not('device_id', 'is', null)
+        .order('created_at', { ascending: false })
         .populate("device")
 
       let sales = []
@@ -1192,14 +1211,21 @@ const resolvers = {
     },
 
     getAdmins: async (_, args) => {
-      const admins = await User.find({ isAdmin: true }).populate("rulesSetBy")
+      const { data: admins } = await supabase
+        .from('users')
+        .select('*')
+        .eq('isAdmin', true)
 
       return admins
     },
 
     getCustomerInfoAdmin: async (_, { id }) => {
       // Fetch all non-admin customers with their carts
-      const customer = await User.findById(id).populate("cart")
+      const { data: customer } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', id)
+        .single()
 
       // Helper function to fetch purchases for a specific customer
       const getPurchases = async (customerId) => {
@@ -1587,16 +1613,22 @@ const resolvers = {
     },
 
     completeVerification: async (_, { id, otp }) => {
-      const user = await User.findById(id)
+      const { data: user } = await supabase
+        .from('users')
+        .select('*')
+        .eq('id', id)
+        .single()
 
       let newUser
 
       if (user?.verificationToken == otp) {
-        newUser = await User.findByIdAndUpdate(
-          id,
-          { phoneVerified: true, verificationToken: "" },
-          { new: true }
-        )
+        const { data: updatedUser } = await supabase
+          .from('users')
+          .update({ phoneVerified: true, verificationToken: "" })
+          .eq('id', id)
+          .select()
+          .single()
+        newUser = updatedUser
       } else {
         newUser = null
       }
@@ -1659,21 +1691,23 @@ const resolvers = {
     },
 
     addAdmin: async (_, { id }) => {
-      const admin = await User.findByIdAndUpdate(
-        id,
-        { isAdmin: true },
-        { new: true }
-      )
+      const { data: admin } = await supabase
+        .from('users')
+        .update({ isAdmin: true })
+        .eq('id', id)
+        .select()
+        .single()
 
       return admin
     },
 
     removeAdmin: async (_, { id }) => {
-      const admin = await User.findByIdAndUpdate(
-        id,
-        { isAdmin: false },
-        { new: true }
-      )
+      const { data: admin } = await supabase
+        .from('users')
+        .update({ isAdmin: false })
+        .eq('id', id)
+        .select()
+        .single()
 
       return admin
     },
@@ -1681,14 +1715,15 @@ const resolvers = {
     editRights: async (_, args) => {
       const { rights, id, changedBy } = args
 
-      const admin = await User.findByIdAndUpdate(
-        id,
-        {
+      const { data: admin } = await supabase
+        .from('users')
+        .update({
           adminRights: rights,
           rulesSetBy: changedBy,
-        },
-        { new: true }
-      )
+        })
+        .eq('id', id)
+        .select()
+        .single()
 
       return admin
     },
@@ -1712,15 +1747,14 @@ const resolvers = {
         await newFinanceRequest.save()
       }
 
-      const user = await User.findByIdAndUpdate(
-        customer,
-        {
-          $set: {
-            cart: [],
-          },
-        },
-        { new: true }
-      )
+      const { data: user } = await supabase
+        .from('users')
+        .update({
+          cart: [],
+        })
+        .eq('id', customer)
+        .select()
+        .single()
 
       await sendText(
         user?.phoneNumber,
@@ -1740,11 +1774,12 @@ const resolvers = {
         updateFields["phoneVerified"] = false
       }
 
-      const user = await User.findByIdAndUpdate(
-        id,
-        { $set: updateFields },
-        { new: true }
-      )
+      const { data: user } = await supabase
+        .from('users')
+        .update(updateFields)
+        .eq('id', id)
+        .select()
+        .single()
 
       return user
     },
@@ -1760,11 +1795,12 @@ const resolvers = {
         OTP += digits[Math.floor(Math.random() * 10)]
       }
 
-      let newUser = await User.findByIdAndUpdate(
-        id,
-        { verificationToken: OTP },
-        { new: true }
-      )
+      const { data: newUser } = await supabase
+        .from('users')
+        .update({ verificationToken: OTP })
+        .eq('id', id)
+        .select()
+        .single()
 
       let res
 
@@ -2358,39 +2394,35 @@ const resolvers = {
     addToCart: async (_, args) => {
       const { email, variant, storage, color, device } = args
 
-      let user
+      // Get current user
+      const { data: currentUser } = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', email)
+        .single()
 
+      let cartItem
       if (!device) {
-        user = await User.findOneAndUpdate(
-          { email },
-          {
-            $addToSet: {
-              cart: {
-                variant,
-                storage,
-                color,
-              },
-            },
-          },
-          {
-            new: true,
-          }
-        )
+        cartItem = {
+          variant,
+          storage,
+          color,
+        }
       } else {
-        user = await User.findOneAndUpdate(
-          { email, "cart.device": { $ne: device } },
-          {
-            $addToSet: {
-              cart: {
-                device,
-              },
-            },
-          },
-          {
-            new: true,
-          }
-        )
+        cartItem = {
+          device,
+        }
       }
+
+      // Add item to cart
+      const updatedCart = [...(currentUser.cart || []), cartItem]
+      
+      const { data: user } = await supabase
+        .from('users')
+        .update({ cart: updatedCart })
+        .eq('email', email)
+        .select()
+        .single()
 
       return user
     },
@@ -2398,15 +2430,22 @@ const resolvers = {
     removeFromCart: async (_, args) => {
       const { email, id } = args
 
-      const user = await User.findOneAndUpdate(
-        { email },
-        {
-          $pull: {
-            cart: { _id: id }, // Correct way to remove an object from the array
-          },
-        },
-        { new: true } // Returns the updated user document
-      )
+      // Get current user
+      const { data: currentUser } = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', email)
+        .single()
+
+      // Remove item from cart
+      const updatedCart = (currentUser.cart || []).filter(item => item._id !== id)
+      
+      const { data: user } = await supabase
+        .from('users')
+        .update({ cart: updatedCart })
+        .eq('email', email)
+        .select()
+        .single()
 
       return user
     },
@@ -2420,11 +2459,12 @@ const resolvers = {
       if (street) updateFields["shipping.street"] = street
       if (town) updateFields["shipping.town"] = town
 
-      const user = await User.findByIdAndUpdate(
-        id,
-        { $set: updateFields },
-        { new: true }
-      )
+      const { data: user } = await supabase
+        .from('users')
+        .update(updateFields)
+        .eq('id', id)
+        .select()
+        .single()
 
       return user
     },
@@ -2448,12 +2488,18 @@ const resolvers = {
         offer,
       } = args
 
-      let user = await User.findOne({ email })
+      const { data: user } = await supabase
+        .from('users')
+        .select('*')
+        .eq('email', email)
+        .single()
 
-      const newBuyBack = new BuyBack({
-        user: user?._id,
-        variant: model,
-        storage,
+      const { data: newBuyBack } = await supabase
+        .from('buybacks')
+        .insert({
+          user_id: user?.id,
+          variant_id: model,
+          storage,
         batteryHealth,
         frontCamOk,
         backCamOk,

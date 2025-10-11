@@ -5,7 +5,6 @@ import { ApolloServerPluginDrainHttpServer } from "@apollo/server/plugin/drainHt
 import http from "http"
 import express from "express"
 import cors from "cors"
-import mongoose from "mongoose"
 
 import resolvers from "../resolvers.js"
 import typeDefs from "../typeDefs.js"
@@ -24,17 +23,7 @@ const server = new ApolloServer({
   plugins: [ApolloServerPluginDrainHttpServer({ httpServer })],
 })
 
-mongoose.Promise = global.Promise
-
-const connection = mongoose.connect(process.env.DB, {
-  useNewUrlParser: true,
-})
-
-connection
-  .then((db) => console.log("DB connected"))
-  .catch((err) => {
-    console.log(err)
-  })
+console.log("Supabase backend ready")
 
 await server.start()
 
