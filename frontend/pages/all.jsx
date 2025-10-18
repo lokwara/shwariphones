@@ -308,7 +308,7 @@ function All() {
               <Stack mt="xs">
                 {Array.from(
                   new Set(
-                    data?.getVariants.flatMap((v) =>
+                    (data?.getVariants ?? []).flatMap((v) =>
                       v.storages.map((s) => s.label)
                     )
                   )
@@ -323,7 +323,7 @@ function All() {
               <Stack mt="xs">
                 {Array.from(
                   new Set(
-                    data?.getVariants.flatMap((v) =>
+                    (data?.getVariants ?? []).flatMap((v) =>
                       v.colors.map((s) => s.label)
                     )
                   )
