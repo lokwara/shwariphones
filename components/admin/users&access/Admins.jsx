@@ -138,64 +138,64 @@ function Admins() {
             >
               <div className="space-y-1">
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("ADD_VARIANT")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("ADD_VARIANT")}
                   value="ADD_VARIANT"
                   label="Add variants"
                 />
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("EDIT_VARIANT")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("EDIT_VARIANT")}
                   value="EDIT_VARIANT"
                   label="Edit variants"
                 />
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("ADD_DEVICE")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("ADD_DEVICE")}
                   value="ADD_DEVICE"
                   label="Add devices"
                 />
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("EDIT_DEVICE")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("EDIT_DEVICE")}
                   value="EDIT_DEVICE"
                   label="Edit devices"
                 />
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("ADD_REPAIR")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("ADD_REPAIR")}
                   value="ADD_REPAIR"
                   label="Add repairs"
                 />
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("UPDATE_REPAIR")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("UPDATE_REPAIR")}
                   value="UPDATE_REPAIR"
                   label="Update repairs"
                 />
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("UPDATE_ORDER")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("UPDATE_ORDER")}
                   value="UPDATE_ORDER"
                   label="Update order (Dispatch & Collection)"
                 />
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("APPROVE_TRADEINS")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("APPROVE_TRADEINS")}
                   value="APPROVE_TRADEINS"
                   label="Approve/Cancel tradeins"
                 />
 
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("APPROVE_FINANCINGS")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("APPROVE_FINANCINGS")}
                   value="APPROVE_FINANCINGS"
                   label="Approve/Reject financings"
                 />
 
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("OFFER_MANAGEMENT")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("OFFER_MANAGEMENT")}
                   value="OFFER_MANAGEMENT"
                   label="Create & update offers "
                 />
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("CAROUSEL_MANAGEMENT")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("CAROUSEL_MANAGEMENT")}
                   value="CAROUSEL_MANAGEMENT"
                   label="Create & remove carousels "
                 />
                 <Checkbox
-                  disabled={!user?.adminRights?.includes("ADMIN_MANAGEMENT")}
+                  disabled={!user?.adminRights || !Array.isArray(user.adminRights) || !user.adminRights.includes("ADMIN_MANAGEMENT")}
                   value="ADMIN_MANAGEMENT"
                   label="Add & remove admins & edit rights "
                 />
@@ -239,9 +239,9 @@ function Admins() {
       floatingFilter: true,
       cellRenderer: ({ value }) => (
         <div className="space-x-1">
-          {value.map((el, i) => (
+          {value && Array.isArray(value) ? value.map((el, i) => (
             <Code key={i}>{formatText(el)}</Code>
-          ))}
+          )) : <Code>No data</Code>}
         </div>
       ),
     },

@@ -31,7 +31,7 @@ import { useViewportSize } from "@mantine/hooks"
 import Link from "next/link"
 import { useQuery } from "urql"
 import { GET_VARIANTS } from "@/lib/request"
-import { supabaseBrowser, useSupabaseSession } from "@/lib/supabaseBrowser"
+import { supabaseBrowser } from "@/lib/supabaseBrowser"
 // import SuprSendInbox from "@suprsend/react-inbox";
 
 const handleSignIn = async () => {
@@ -44,7 +44,6 @@ const handleSignOut = async () => {
 
 function Header() {
   const router = useRouter()
-  const { session, loading } = useSupabaseSession()
   const { user, refreshApp } = useUser()
 
   const { width } = useViewportSize()

@@ -91,14 +91,32 @@ function SidebarMenu({ title, label, setActive, active }) {
 
 export default function Administration() {
   const [active, setActive] = useState("variants")
-  const { user } = useUser()
+  const { user, loading } = useUser()
   const router = useRouter()
 
-  if (user && !user?.isAdmin) router.push("/")
+  console.log("Administration - User object:", user)
+  console.log("Administration - isAdmin:", user?.isAdmin)
+  console.log("Administration - adminRights:", user?.adminRights)
+  console.log("Administration - Loading:", loading)
+  console.log("Administration - User ID:", user?.id)
+  console.log("Administration - User email:", user?.email)
 
-  if (!user) return <p>...</p>
+  // Show loading while user data is being fetched
+  if (loading || !user) {
+    console.log("Still loading user data...")
+    return <p>Loading...</p>
+  }
 
-  if (user && user?.isAdmin)
+  // Check if user is admin after data is loaded
+  if (user && !user?.isAdmin) {
+    console.log("User is not admin, redirecting to home")
+    router.push("/")
+    return <p>Redirecting...</p>
+  }
+
+  // User is admin, show admin page
+  if (user && user?.isAdmin) {
+    console.log("User is admin, showing admin page")
     return (
       <div className="flex">
         <Sidebar setActive={setActive} active={active} />
@@ -119,4 +137,8 @@ export default function Administration() {
         {active == "users&access" && <UsersAccess />}
       </div>
     )
+  }
+
+  // Fallback - should not reach here
+  return <p>Access denied</p>
 }

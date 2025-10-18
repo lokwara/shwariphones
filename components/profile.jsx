@@ -9,7 +9,7 @@ import {
   TextInput,
   UnstyledButton,
 } from "@mantine/core"
-import { signOut } from "next-auth/react"
+import { supabaseBrowser } from "@/lib/supabaseBrowser"
 import Image from "next/image"
 import React, { useEffect, useState } from "react"
 import SignUp from "./signup"
@@ -35,6 +35,9 @@ import { useViewportSize } from "@mantine/hooks"
 function Profile({ user }) {
   const { width } = useViewportSize()
   const { refreshApp } = useUser()
+  
+  console.log('Profile component - user object:', user)
+  console.log('Profile component - user phone number:', user?.phoneNumber)
   const [error, setError] = useState(null)
   const [account, setAccount] = useState({
     name: user?.name,
@@ -61,45 +64,66 @@ function Profile({ user }) {
     town: null,
   })
 
-  const [_, _editProfile] = useMutation(UPDATE_PROFILE)
   const [__, _editShipping] = useMutation(EDIT_SHIPPING)
 
-  const handleSaveUpdates = () => {
+  const handleSaveUpdates = async () => {
     setLoadingEdit(true)
 
-    let payload = {}
+    try {
+      // Update profile directly in Supabase
+      const updateData = {}
+      
+      if (account?.phoneNumber) updateData.phoneNumber = account.phoneNumber
+      if (account?.name) updateData.name = account.name
 
-    payload["editProfileId"] = user?.id
+      const { data, error } = await supabaseBrowser
+        .from('users')
+        .update(updateData)
+        .eq('id', user?.id)
+        .select()
 
-    if (account?.phoneNumber) payload["phoneNumber"] = account?.phoneNumber
-    if (account?.name) payload["name"] = account?.name
-
-    _editProfile(payload)
-      .then(({ data }, error) => {
-        if (data?.editProfile && !error) {
+      if (error) {
+        console.error('Error updating profile:', error)
+        notifications.show({
+          title: "An error occurred",
+          message: error.message,
+          icon: <IconInfoCircleFilled />,
+          color: "red",
+        })
+      } else {
+        console.log('Profile updated successfully:', data)
+        console.log('Updated phone number:', data[0]?.phoneNumber)
+        console.log('Current user phone number:', user?.phoneNumber)
+        
+        // Wait a moment for the database to update, then refresh
+        setTimeout(() => {
+          console.log('Calling refreshApp...')
           refreshApp()
-          notifications.show({
-            title: "Profile details saved",
-            icon: <IconCheck />,
-            color: "green",
-          })
-          setAccount({
-            firstName: null,
-            lastName: null,
-            phoneNumber: null,
-          })
-          setEditPersonal(false)
-        } else {
-          notifications.show({
-            title: "An error occured",
-            icon: <IconInfoCircleFilled />,
-            color: "red",
-          })
-        }
+        }, 500)
+        
+        notifications.show({
+          title: "Profile details saved",
+          icon: <IconCheck />,
+          color: "green",
+        })
+        setAccount({
+          firstName: null,
+          lastName: null,
+          phoneNumber: null,
+        })
+        setEditPersonal(false)
+      }
+    } catch (err) {
+      console.error('Error:', err)
+      notifications.show({
+        title: "An error occurred",
+        message: err.message,
+        icon: <IconInfoCircleFilled />,
+        color: "red",
       })
-      .finally(() => {
-        setLoadingEdit(false)
-      })
+    } finally {
+      setLoadingEdit(false)
+    }
   }
 
   const handleEditShipping = () => {
@@ -146,26 +170,34 @@ function Profile({ user }) {
     _sendVerificationToken({
       sendVerificationTokenId: user?.id,
     }).then(({ data, error }) => {
-      if (!error) {
+      console.log('Verification token response:', { data, error })
+      if (!error && data?.sendVerificationToken === "OK") {
         setOpenOTPModal(true)
+        notifications.show({
+          title: "Verification code sent",
+          message: "Check your phone for the SMS",
+          color: "green",
+        })
         return
       }
       notifications.show({
-        title: "Something occured",
-        color: "orange",
+        title: "Failed to send verification",
+        message: "Please try again",
+        color: "red",
       })
       return
     })
   }
 
   const handleCompleteVerification = () => {
-    setLoadingVerification(false)
+    setLoadingVerification(true)
 
     _completeVerification({
       completeVerificationId: user?.id,
       otp,
     })
       .then(({ data, error }) => {
+        console.log('Complete verification response:', { data, error })
         if (!error && data?.completeVerification) {
           notifications.show({
             title: "Phone number verified successfully",
@@ -181,14 +213,17 @@ function Profile({ user }) {
 
         notifications.show({
           title: "Verification failed",
-          color: "orange",
+          message: "Invalid OTP code",
+          color: "red",
           icon: <IconExclamationMark />,
         })
       })
       .catch((err) => {
+        console.error('Verification error:', err)
         notifications.show({
           title: "Verification failed",
-          color: "orange",
+          message: "Please try again",
+          color: "red",
           icon: <IconExclamationMark />,
         })
       })
@@ -303,7 +338,7 @@ function Profile({ user }) {
 
               <p
                 className="underline text-[0.8rem] hover:cursor-pointer text-red-500"
-                onClick={signOut}
+                onClick={() => supabaseBrowser.auth.signOut()}
               >
                 Sign out
               </p>

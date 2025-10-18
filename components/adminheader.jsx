@@ -2,6 +2,7 @@ import { Avatar, Menu, UnstyledButton, rem } from "@mantine/core";
 import { IconArrowLeft, IconLogout, IconSettings } from "@tabler/icons-react";
 import { useRouter } from "next/router";
 import React from "react";
+import { supabaseBrowser } from "@/lib/supabaseBrowser";
 
 function AdminHeader({ current }) {
   const router = useRouter();
@@ -23,7 +24,11 @@ function AdminHeader({ current }) {
             <Menu.Item leftSection={<IconSettings />}>
               Profile & Settings
             </Menu.Item>
-            <Menu.Item color="red" leftSection={<IconLogout />}>
+            <Menu.Item 
+              color="red" 
+              leftSection={<IconLogout />}
+              onClick={() => supabaseBrowser.auth.signOut()}
+            >
               Sign out
             </Menu.Item>
           </Menu.Dropdown>

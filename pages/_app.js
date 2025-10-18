@@ -27,6 +27,7 @@ import { useContext, useEffect } from "react"
 import { debugExchange, cacheExchange, fetchExchange } from "urql"
 
 import UserProvider from "@/context/User"
+import AutoRefreshUser from "@/components/AutoRefreshUser"
 import Script from "next/script"
 
 const theme = createTheme({
@@ -80,6 +81,7 @@ function App({ Component, pageProps: { session, ...pageProps } }) {
           <NavigationProgress color="red" initialProgress={20} />
           <main>
             <UserProvider>
+              <AutoRefreshUser />
               <RouteLoader />
               <Component {...pageProps} />
             </UserProvider>
