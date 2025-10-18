@@ -150,14 +150,8 @@ const resolvers = {
 
   User: {
     tradeIns: async (parent, args) => {
-      const buybacks = await BuyBack.find({
-        user: parent?.id,
-        cancelled: false,
-      })
-        .populate("variant")
-        .sort({ createdAt: -1 })
-
-      return buybacks
+      // Return empty array for now since BuyBack model is not available
+      return []
     },
     cart: async (parent, args) => {
       const { cart } = parent
@@ -205,39 +199,12 @@ const resolvers = {
       return cartItem
     },
     orders: async (parent, args) => {
-      const orders = await Order.find({
-        "saleInfo.customer": parent?.id,
-      })
-        .populate("variant")
-        .sort({ "saleInfo.payment.timestamp": -1 })
-
-      return orders
+      // Return empty array for now since Order model is not available
+      return []
     },
     financingRequests: async (parent, args) => {
-      const requests = await FinanceRequest.find({
-        customer: parent?.id,
-      })
-        .populate("variant")
-        .sort({ createdAt: -1 })
-
-      const results = []
-
-      for (const request of requests) {
-        let result = {
-          id: request?.id,
-          device: {
-            variant: request?.variant,
-            storage: request?.storage,
-            color: request?.color,
-          },
-          financer: request?.financer,
-          status: request?.status,
-        }
-
-        results.push(result)
-      }
-
-      return results
+      // Return empty array for now since FinanceRequest model is not available
+      return []
     },
   },
 
@@ -864,11 +831,25 @@ const resolvers = {
 
     getUser: async (_, args) => {
       const { email } = args
-      const { data: user } = await supabase
+      console.log('🔍 GraphQL getUser called with email:', email)
+      
+      const { data: user, error } = await supabase
         .from('users')
         .select('*')
         .eq('email', email)
         .single()
+        
+      if (error) {
+        console.log('❌ GraphQL getUser error:', error)
+        return null
+      }
+      
+      console.log('✅ GraphQL getUser found user:', user ? 'Yes' : 'No')
+      if (user) {
+        console.log('✅ User isAdmin:', user.isAdmin)
+        console.log('✅ User adminRights:', user.adminRights)
+      }
+      
       return user
     },
 
@@ -1613,27 +1594,52 @@ const resolvers = {
     },
 
     completeVerification: async (_, { id, otp }) => {
-      const { data: user } = await supabase
+      console.log('Verifying OTP for user ID:', id, 'OTP:', otp)
+      
+      let userId = id
+      let user
+      
+      // Get the user and check their stored OTP
+      const { data: userData, error: fetchError } = await supabase
         .from('users')
-        .select('*')
+        .select('verificationToken, phoneVerified')
         .eq('id', id)
         .single()
-
-      let newUser
-
-      if (user?.verificationToken == otp) {
-        const { data: updatedUser } = await supabase
-          .from('users')
-          .update({ phoneVerified: true, verificationToken: "" })
-          .eq('id', id)
-          .select()
-          .single()
-        newUser = updatedUser
+        
+      console.log('User verification data:', { user: userData, fetchError })
+      
+      if (fetchError || !userData) {
+        console.log('Error fetching user with ID:', id, 'Error:', fetchError)
+        return null
       } else {
-        newUser = null
+        user = userData
       }
-
-      return newUser
+      
+      // Check if OTP matches
+      if (user.verificationToken !== otp) {
+        console.log('OTP mismatch. Expected:', user.verificationToken, 'Got:', otp)
+        return null
+      }
+      
+      // OTP is correct, mark phone as verified and clear the token
+      const { data: updatedUser, error: updateError } = await supabase
+        .from('users')
+        .update({ 
+          phoneVerified: true, 
+          verificationToken: null // Clear the token after successful verification
+        })
+        .eq('id', userId)
+        .select()
+        .single()
+        
+      console.log('Verification result:', { updatedUser, updateError })
+      
+      if (updateError) {
+        console.log('Error verifying phone:', updateError)
+        return null
+      }
+      
+      return updatedUser
     },
 
     sendSMS: async () => {
@@ -1774,20 +1780,57 @@ const resolvers = {
         updateFields["phoneVerified"] = false
       }
 
-      const { data: user } = await supabase
+      // Try to find user by ID first, then by email if ID doesn't work
+      let { data: user, error } = await supabase
         .from('users')
         .update(updateFields)
         .eq('id', id)
         .select()
         .single()
 
+      // If user not found by ID, try by email (in case ID is actually an email)
+      if (error && id.includes('@')) {
+        const { data: userByEmail, error: emailError } = await supabase
+          .from('users')
+          .update(updateFields)
+          .eq('email', id)
+          .select()
+          .single()
+        
+        if (!emailError) {
+          user = userByEmail
+        }
+      }
+
       return user
     },
 
     sendVerificationToken: async (_, { id }) => {
-      const user = await User?.findById(id)
-      const phoneNumber = user?.phoneNumber
+      console.log('Looking for user with ID:', id)
+      
+      let phoneNumber, userId
+      
+      // Get user from Supabase instead of MongoDB
+      const { data: user, error: userError } = await supabase
+        .from('users')
+        .select('phoneNumber')
+        .eq('id', id)
+        .single()
 
+      if (userError || !user) {
+        console.log('User not found with ID:', id, 'Error:', userError)
+        return "NO_USER"
+      } else {
+        phoneNumber = user.phoneNumber
+        userId = id
+      }
+
+      if (!phoneNumber) {
+        console.log('No phone number found for user')
+        return "NO_PHONE"
+      }
+
+      // Generate 4-digit OTP
       let digits = "0123456789"
       let OTP = ""
 
@@ -1795,46 +1838,46 @@ const resolvers = {
         OTP += digits[Math.floor(Math.random() * 10)]
       }
 
-      const { data: newUser } = await supabase
+      // Store OTP in the verificationToken column
+      console.log('Storing OTP for user ID:', userId, 'OTP:', OTP)
+      
+      const { data: updatedUser, error: updateError } = await supabase
         .from('users')
         .update({ verificationToken: OTP })
-        .eq('id', id)
+        .eq('id', userId)
         .select()
         .single()
 
-      let res
+      console.log('OTP storage result:', { updatedUser, updateError })
+      
+      if (updateError) {
+        console.log('Error storing OTP:', updateError)
+        return "UPDATE_ERROR"
+      }
 
-      if (newUser) {
-        // const options = {
-        //   to: [phoneNumber],
-        //   message: `Your OTP verification is ${OTP}`,
-        // };
-
-        // Send message and capture the response or error
-        // sms
-        //   .send(options)
-        //   .then(({ SMSMessageData }) => {
-        //     console.log(SMSMessageData?.Recipients);
-        //     res = "OK";
-        //   })
-        //   .catch((error) => {
-        //     console.log(error);
-        //     res = "FAILED";
-        //   });
-
-        const { responses } = await sendText(
+      try {
+        // Send SMS using the existing sendText function
+        console.log(`Sending SMS to ${phoneNumber} with OTP: ${OTP}`)
+        const result = await sendText(
           phoneNumber,
           `Your OTP verification is ${OTP}`
         )
-        const isSuccess = responses[0]["response-code"] == 200 ? true : false
-        console.log(isSuccess)
-      } else {
-        res = "NO_USER"
+        
+        console.log('SMS send result:', result)
+        
+        // Check if SMS was sent successfully
+        if (result && result.responses && result.responses[0]) {
+          const isSuccess = result.responses[0]["response-code"] == 200
+          console.log('SMS success:', isSuccess)
+          return isSuccess ? "OK" : "SMS_FAILED"
+        } else {
+          console.log('SMS failed - no response data')
+          return "SMS_FAILED"
+        }
+      } catch (error) {
+        console.log('SMS error:', error)
+        return "SMS_ERROR"
       }
-
-      console.log(res)
-
-      return res
     },
 
     collectOrder: async (_, args) => {
