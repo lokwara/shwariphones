@@ -1,0 +1,245 @@
+[
+  {
+    "brand": "Apple",
+    "model": "iPhone 14",
+    "technicalSpecifications": [
+      {
+        "label": "Display",
+        "value": "6.1-inch Super Retina XDR OLED (60Hz)"
+      },
+      {
+        "label": "Processor",
+        "value": "A15 Bionic chip (5nm)"
+      },
+      {
+        "label": "Rear Cameras",
+        "value": "12 MP (Main, f/1.5, OIS, PDAF) + 12 MP (Ultra-wide, f/2.4)"
+      },
+      {
+        "label": "Front Camera",
+        "value": "12 MP (f/1.9) with Autofocus and HDR"
+      },
+      {
+        "label": "RAM",
+        "value": "6 GB LPDDR4X"
+      },
+      {
+        "label": "Battery",
+        "value": "3,279 mAh (up to 20 hours video playback)"
+      },
+      {
+        "label": "Operating System",
+        "value": "iOS 16 (Upgradable to iOS 17)"
+      },
+      {
+        "label": "Dimensions",
+        "value": "146.7 x 71.5 x 7.8 mm"
+      },
+      {
+        "label": "Weight",
+        "value": "172 grams"
+      },
+      {
+        "label": "Water/Dust Resistance",
+        "value": "IP68 (6m for 30 min)"
+      }
+    ],
+    "basePrice": 75000,
+    "screenCost": 9000,
+    "backlidCost": 9000,
+    "cameraCost": 8000,
+    "meCost": 9000,
+    "batteryCost": 5000,
+    "colors": [
+      {
+        "label": "Midnight",
+        "colorCode": "#3C3C3C"
+      },
+      {
+        "label": "Starlight",
+        "colorCode": "#F0F0F0"
+      },
+      {
+        "label": "Blue",
+        "colorCode": "#4A90E2"
+      },
+      {
+        "label": "Purple",
+        "colorCode": "#A7A3E3"
+      }
+    ],
+    "storages": ["128GB", "256GB", "512GB"],
+    "removed": false,
+    "financing": ["BuySimu", "Chantech"],
+    "reviews": [],
+    "updatedAt": {
+      "$date": "2025-02-04T14:10:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2025-02-04T14:10:00.000Z"
+    },
+    "__v": 0
+  },
+  {
+    "brand": "Apple",
+    "model": "iPhone 14 Plus",
+    "technicalSpecifications": [
+      {
+        "label": "Display",
+        "value": "6.7-inch Super Retina XDR OLED (60Hz)"
+      },
+      {
+        "label": "Processor",
+        "value": "A15 Bionic chip (5nm)"
+      },
+      {
+        "label": "Rear Cameras",
+        "value": "12 MP (Main, f/1.5, OIS, PDAF) + 12 MP (Ultra-wide, f/2.4)"
+      },
+      {
+        "label": "Front Camera",
+        "value": "12 MP (f/1.9) with Autofocus and HDR"
+      },
+      {
+        "label": "RAM",
+        "value": "6 GB LPDDR4X"
+      },
+      {
+        "label": "Battery",
+        "value": "4,325 mAh (up to 26 hours video playback)"
+      },
+      {
+        "label": "Operating System",
+        "value": "iOS 16 (Upgradable to iOS 17)"
+      },
+      {
+        "label": "Dimensions",
+        "value": "160.8 x 78.1 x 7.8 mm"
+      },
+      {
+        "label": "Weight",
+        "value": "203 grams"
+      },
+      {
+        "label": "Water/Dust Resistance",
+        "value": "IP68 (6m for 30 min)"
+      }
+    ],
+    "basePrice": 85000,
+    "screenCost": 11000,
+    "backlidCost": 11000,
+    "cameraCost": 10000,
+    "meCost": 11000,
+    "batteryCost": 6000,
+    "colors": [
+      {
+        "label": "Midnight",
+        "colorCode": "#3C3C3C"
+      },
+      {
+        "label": "Starlight",
+        "colorCode": "#F0F0F0"
+      },
+      {
+        "label": "Blue",
+        "colorCode": "#4A90E2"
+      },
+      {
+        "label": "Purple",
+        "colorCode": "#A7A3E3"
+      }
+    ],
+    "storages": ["128GB", "256GB", "512GB"],
+    "removed": false,
+    "financing": ["BuySimu", "Chantech"],
+    "reviews": [],
+    "updatedAt": {
+      "$date": "2025-02-04T14:15:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2025-02-04T14:15:00.000Z"
+    },
+    "__v": 0
+  },
+  {
+    "brand": "Apple",
+    "model": "iPhone 14 Pro",
+    "technicalSpecifications": [
+      {
+        "label": "Display",
+        "value": "6.1-inch LTPO Super Retina XDR OLED (120Hz ProMotion)"
+      },
+      {
+        "label": "Processor",
+        "value": "A16 Bionic chip (4nm)"
+      },
+      {
+        "label": "Rear Cameras",
+        "value": "48 MP (Main, f/1.78, OIS, PDAF) + 12 MP (Ultra-wide, f/2.2) + 12 MP (Telephoto, 3x optical zoom, f/2.8)"
+      },
+      {
+        "label": "Front Camera",
+        "value": "12 MP (f/1.9) with Autofocus and HDR"
+      },
+      {
+        "label": "RAM",
+        "value": "6 GB LPDDR5"
+      },
+      {
+        "label": "Battery",
+        "value": "3,200 mAh (up to 23 hours video playback)"
+      },
+      {
+        "label": "Operating System",
+        "value": "iOS 16 (Upgradable to iOS 17)"
+      },
+      {
+        "label": "Dimensions",
+        "value": "147.5 x 71.9 x 7.85 mm"
+      },
+      {
+        "label": "Weight",
+        "value": "206 grams"
+      },
+      {
+        "label": "Water/Dust Resistance",
+        "value": "IP68 (6m for 30 min)"
+      }
+    ],
+    "basePrice": 110000,
+    "screenCost": 13000,
+    "backlidCost": 13000,
+    "cameraCost": 12000,
+    "meCost": 13000,
+    "batteryCost": 8000,
+    "colors": [
+      {
+        "label": "Space Black",
+        "colorCode": "#1C1C1C"
+      },
+      {
+        "label": "Silver",
+        "colorCode": "#D1D1D6"
+      },
+      {
+        "label": "Gold",
+        "colorCode": "#D4AF37"
+      },
+      {
+        "label": "Deep Purple",
+        "colorCode": "#6A4C9C"
+      }
+    ],
+    "storages": ["128GB", "256GB", "512GB", "1TB"],
+    "removed": false,
+    "financing": ["BuySimu", "Chantech"],
+    "reviews": [],
+    "updatedAt": {
+      "$date": "2025-02-04T14:20:00.000Z"
+    },
+    "createdAt": {
+      "$date": "2025-02-04T14:20:00.000Z"
+    },
+    "__v": 0
+  }
+]
