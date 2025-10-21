@@ -5,7 +5,7 @@ import { useViewportSize } from "@mantine/hooks";
 import { notifications } from "@mantine/notifications";
 import { AgGridReact } from "ag-grid-react";
 import moment from "moment";
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useMutation, useQuery } from "urql";
 
 function Admins() {
@@ -16,10 +16,24 @@ function Admins() {
     query: GET_ADMINS,
   });
 
+
   const MoreRender = ({ data }) => {
     const [rightsOpen, setRightsOpen] = useState(false);
-    const [rights, setRights] = useState(data?.adminRights);
+    const [rights, setRights] = useState([]);
     const [loading, setLoading] = useState(false);
+
+    // Reset rights when modal opens
+    useEffect(() => {
+      if (rightsOpen) {
+        const adminRights = data?.adminRights;
+        const parsedRights = Array.isArray(adminRights) 
+          ? adminRights 
+          : (typeof adminRights === 'string' 
+              ? JSON.parse(adminRights || '[]') 
+              : []);
+        setRights(parsedRights);
+      }
+    }, [rightsOpen, data?.adminRights]);
 
     const [_, _editRights] = useMutation(EDIT_RIGHTS);
     const [__, _removeAdmin] = useMutation(REMOVE_ADMIN);
@@ -133,7 +147,6 @@ function Admins() {
 
             <Checkbox.Group
               value={rights}
-              defaultChecked={data?.adminRights}
               onChange={setRights}
             >
               <div className="space-y-1">
@@ -237,13 +250,20 @@ function Admins() {
       filter: true,
       width: 200,
       floatingFilter: true,
-      cellRenderer: ({ value }) => (
-        <div className="space-x-1">
-          {value && Array.isArray(value) ? value.map((el, i) => (
-            <Code key={i}>{formatText(el)}</Code>
-          )) : <Code>No data</Code>}
-        </div>
-      ),
+      cellRenderer: ({ value }) => {
+        const parsedValue = Array.isArray(value) 
+          ? value 
+          : (typeof value === 'string' 
+              ? JSON.parse(value || '[]') 
+              : []);
+        return (
+          <div className="space-x-1">
+            {parsedValue && Array.isArray(parsedValue) && parsedValue.length > 0 ? parsedValue.map((el, i) => (
+              <Code key={i}>{formatText(el)}</Code>
+            )) : <Code>No data</Code>}
+          </div>
+        );
+      },
     },
 
     {

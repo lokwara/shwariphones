@@ -143,7 +143,11 @@ function UserProvider({ children }) {
         isAdmin: userProfile.isAdmin,
         phoneNumber: userProfile.phoneNumber,
         phoneVerified: userProfile.phoneVerified,
-        adminRights: userProfile.adminRights,
+        adminRights: Array.isArray(userProfile.adminRights) 
+          ? userProfile.adminRights 
+          : (typeof userProfile.adminRights === 'string' 
+              ? JSON.parse(userProfile.adminRights || '[]') 
+              : []),
       }),
       
       // Additional data from GraphQL if available
