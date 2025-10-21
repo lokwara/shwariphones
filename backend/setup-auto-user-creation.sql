@@ -43,3 +43,4 @@ GRANT USAGE ON SCHEMA public TO postgres, anon, authenticated, service_role;
 GRANT ALL ON public.users TO postgres, anon, authenticated, service_role;
 
 
+

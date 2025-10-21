@@ -51,3 +51,4 @@ GRANT ALL ON public.users TO postgres, anon, authenticated, service_role;
 GRANT EXECUTE ON FUNCTION public.handle_new_user() TO postgres, anon, authenticated, service_role;
 
 
+

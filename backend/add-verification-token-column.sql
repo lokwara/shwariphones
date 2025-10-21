@@ -11,3 +11,4 @@ GRANT ALL ON TABLE public.users TO anon, authenticated, service_role;
 CREATE INDEX IF NOT EXISTS idx_users_verification_token ON public.users(verificationToken);
 
 
+

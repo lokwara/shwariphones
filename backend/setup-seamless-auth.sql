@@ -133,3 +133,4 @@ SELECT * FROM public.get_user_profile();
 GRANT SELECT ON public.user_profiles TO anon, authenticated, service_role;
 
 
+

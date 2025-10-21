@@ -153,3 +153,4 @@ CREATE INDEX IF NOT EXISTS idx_users_email ON public.users(email);
 ALTER TABLE public.users FORCE ROW LEVEL SECURITY;
 
 
+
