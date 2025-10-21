@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer utilities {
+  .no-scrollbar::-webkit-scrollbar {
+    display: none;
+  }
+  .no-scrollbar {
+    -ms-overflow-style: none; /* Hide scrollbar for IE and Edge */
+    scrollbar-width: none; /* Hide scrollbar for Firefox */
+  }
+}
+
+/* @font-face {
+  font-family: "Duplet";
+  src: url("../fonts/Duplet-Thin.otf");
+  font-weight: 300;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Duplet";
+  src: url("../fonts/Duplet-Regular.otf");
+  font-weight: normal;
+  font-style: normal;
+}
+*/
+
+@font-face {
+  font-family: "Didot";
+  src: url("/fonts/Didot-Bold.otf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Didot";
+  src: url("/fonts/Didot-Italic.otf");
+  font-style: italic;
+}
+
+@font-face {
+  font-family: "EudoxusSans";
+  src: url("/fonts/EudoxusSans-Regular.ttf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "EudoxusSans";
+  src: url("/fonts/EudoxusSans-Bold.ttf");
+  font-weight: 700;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "EudoxusSans";
+  src: url("/fonts/EudoxusSans-Medium.ttf");
+  font-weight: 500;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: "Duplet";
+  src: url("/fonts/Duplet-Regular.otf");
+  font-weight: 400;
+  font-style: normal;
+}
+
+@layer utilities {
+  .text-balance {
+    text-wrap: balance;
+  }
+}
+
+body {
+  font-family: "EudoxusSans", sans-serif;
+  font-weight: normal;
+}
+
+p {
+  font-size: 0.8rem;
+}

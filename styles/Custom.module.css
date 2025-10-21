@@ -1,0 +1,35 @@
+.inner {
+  display: none;
+}
+
+.label {
+  margin: 0;
+  padding: 0;
+}
+
+.badgeLabel {
+  color: black;
+}
+
+.btnLabel {
+  color: black;
+}
+
+.root {
+  position: relative;
+  padding: var(--mantine-spacing-md);
+  transition: border-color 150ms ease;
+
+  &[data-checked] {
+    background-color: #b3c8ef;
+  }
+
+  &[data-disabled] {
+    background-color: gray;
+    border-color: gray;
+  }
+
+  @mixin hover {
+    cursor: pointer;
+  }
+}
