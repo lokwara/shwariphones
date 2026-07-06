@@ -11,6 +11,7 @@ import resolvers from "../resolvers.js"
 import typeDefs from "../typeDefs.js"
 import dotenv from "dotenv"
 import { apiLimiter } from "../middleware/rateLimiter.js"
+import inventoryRouter from "../routes/inventory.js"
 
 dotenv.config()
 
@@ -77,6 +78,17 @@ app.use(
 
 app.use(express.json())
 
+// Inventory SQLite routes (IMEI validation + webhooks)
+app.use(inventoryRouter)
+
+// Initialize SQLite on startup when configured
+try {
+  const { getDb } = await import('../lib/sqlite.js')
+  getDb()
+} catch (error) {
+  console.warn('⚠️ Inventory SQLite not initialized:', error.message)
+}
+
 // Health check endpoint (no rate limiting)
 app.get("/health", (req, res) => {
   res.json({ 
@@ -98,7 +110,9 @@ app.get("/", (req, res) => {
   res.json({ 
     message: "Shwari Phones GraphQL API",
     graphql: "/graphql",
-    health: "/health"
+    health: "/health",
+    inventory: "/inventory/imei/:imei",
+    inventoryWebhook: "/webhooks/inventory",
   })
 })
 
