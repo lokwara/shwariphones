@@ -52,19 +52,16 @@ Copy [`docs/inventory-apps-script.js`](./inventory-apps-script.js) into the boun
 
 Run `installInventoryTrigger()` once.
 
-## 5. Next.js (Vercel) cutover
+## 5. Next.js (Vercel)
+
+Set on the frontend deployment only (not on Railway):
 
 ```bash
-INVENTORY_SOURCE=railway
 INVENTORY_API_URL=https://YOUR-RAILWAY-HOST
 INVENTORY_API_KEY=<same as Railway INVENTORY_API_KEY>
 ```
 
-Rollback to Google Sheets cache:
-
-```bash
-INVENTORY_SOURCE=sheets
-```
+Do **not** set `GOOGLE_INVENTORY_*` or `INVENTORY_SOURCE` on Vercel — inventory reads go through Railway only. Receipt writes to Google Sheets still use `GOOGLE_SERVICE_ACCOUNT_KEY` and the Sold Phones spreadsheet env vars as before.
 
 ## 6. Endpoints
 
